@@ -76,7 +76,7 @@ function App() {
                 </SectionTransition>
                 
                 <SectionTransition transitionType="scale" delay={0.3}>
-                  <Skills />
+                  <Skills isDark={isDark} />
                 </SectionTransition>
                 
                 <SectionTransition transitionType="parallax">

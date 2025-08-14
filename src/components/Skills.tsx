@@ -277,7 +277,12 @@ const Skills = () => {
                       }}
                     >
                       <div className="pt-4 border-t border-white/10">
-                        <p className="text-gray-300 text-sm leading-relaxed">
+                      <div className={`pt-4 border-t ${
+                        isDark ? 'border-white/10' : 'border-gray-200'
+                      }`}>
+                        <p className={`text-sm leading-relaxed ${
+                          isDark ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
                           {skill.description}
                         </p>
                       </div>
