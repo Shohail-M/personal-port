@@ -169,8 +169,12 @@ const Skills = () => {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ${
                   activeCategory === category.id
-                    ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25'
-                    : 'bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:border-cyan-400/30'
+                    ? isDark
+                      ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25'
+                      : 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
+                    : isDark
+                      ? 'bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:border-cyan-400/30'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-blue-400/50 shadow-sm hover:shadow-md'
                 }`}
               >
                 {category.icon}

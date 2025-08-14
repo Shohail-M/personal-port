@@ -49,7 +49,7 @@ function App() {
         <div className={`min-h-screen transition-colors duration-300 ${
           isDark 
             ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100' 
-            : 'bg-gradient-to-br from-gray-50 to-white text-gray-900'
+            : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
         }`}>
           {/* Custom Cursor */}
           <CustomCursor />

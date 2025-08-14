@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
         isScrolled
           ? isDark
             ? 'bg-slate-900/90 backdrop-blur-lg border-b border-slate-700/50'
-            : 'bg-white/90 backdrop-blur-lg border-b border-gray-200/50'
+            : 'bg-white/95 backdrop-blur-lg border-b border-gray-200/60 shadow-sm'
           : 'bg-transparent'
       }`}
     >
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
                 <button
                   onClick={() => scrollToSection(item.href)}
                   className={`text-sm font-medium transition-colors duration-200 hover:text-cyan-400 relative ${
-                    isDark ? 'text-gray-200' : 'text-gray-600'
+                    isDark ? 'text-gray-200' : 'text-gray-700 hover:text-blue-600'
                   }`}
                 >
                   {item.name}
@@ -148,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme }) => {
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
                 className={`text-left text-sm font-medium transition-colors duration-200 hover:text-cyan-400 ${
-                  isDark ? 'text-gray-200' : 'text-gray-600'
+                  isDark ? 'text-gray-200' : 'text-gray-700 hover:text-blue-600'
                 }`}
               >
                 {item.name}
