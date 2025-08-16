@@ -20,6 +20,81 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
 
   const skillCategories: SkillCategory[] = [
     {
+      name: 'All',
+      skills: [
+        {
+          name: 'React',
+          level: 95,
+          icon: <Code className="w-6 h-6" />,
+          description: 'Advanced React development with hooks, context, and modern patterns',
+          color: isDark ? '#61dafb' : '#0ea5e9'
+        },
+        {
+          name: 'TypeScript',
+          level: 90,
+          icon: <Code className="w-6 h-6" />,
+          description: 'Strong typing and advanced TypeScript features',
+          color: isDark ? '#3178c6' : '#8b5cf6'
+        },
+        {
+          name: 'Next.js',
+          level: 88,
+          icon: <Globe className="w-6 h-6" />,
+          description: 'Full-stack React framework with SSR and SSG',
+          color: isDark ? '#ffffff' : '#111827'
+        },
+        {
+          name: 'Tailwind CSS',
+          level: 92,
+          icon: <Palette className="w-6 h-6" />,
+          description: 'Utility-first CSS framework for rapid UI development',
+          color: isDark ? '#06b6d4' : '#0ea5e9'
+        },
+        {
+          name: 'Node.js',
+          level: 75,
+          icon: <Server className="w-6 h-6" />,
+          description: 'Server-side JavaScript with Express and modern frameworks',
+          color: isDark ? '#68a063' : '#059669'
+        },
+        {
+          name: 'Python',
+          level: 60,
+          icon: <Code className="w-6 h-6" />,
+          description: 'Backend development with Django and FastAPI',
+          color: isDark ? '#3776ab' : '#8b5cf6'
+        },
+        {
+          name: 'PostgreSQL',
+          level: 0,
+          icon: <Database className="w-6 h-6" />,
+          description: 'Advanced database design and optimization',
+          color: isDark ? '#336791' : '#0ea5e9'
+        },
+        {
+          name: 'MongoDB',
+          level: 78,
+          icon: <Database className="w-6 h-6" />,
+          description: 'NoSQL database design and aggregation pipelines',
+          color: isDark ? '#47a248' : '#059669'
+        },
+        {
+          name: 'React Native',
+          level: 83,
+          icon: <Smartphone className="w-6 h-6" />,
+          description: 'Cross-platform mobile app development',
+          color: isDark ? '#61dafb' : '#0ea5e9'
+        },
+        {
+          name: 'Flutter',
+          level: 20,
+          icon: <Smartphone className="w-6 h-6" />,
+          description: 'Native mobile apps with Dart and Flutter',
+          color: isDark ? '#02569b' : '#8b5cf6'
+        }
+      ]
+    },
+    {
       name: 'Frontend',
       skills: [
         {
@@ -57,21 +132,21 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
       skills: [
         {
           name: 'Node.js',
-          level: 85,
+          level: 75,
           icon: <Server className="w-6 h-6" />,
           description: 'Server-side JavaScript with Express and modern frameworks',
           color: isDark ? '#68a063' : '#059669'
         },
         {
           name: 'Python',
-          level: 80,
+          level: 60,
           icon: <Code className="w-6 h-6" />,
           description: 'Backend development with Django and FastAPI',
           color: isDark ? '#3776ab' : '#8b5cf6'
         },
         {
           name: 'PostgreSQL',
-          level: 82,
+          level: 0,
           icon: <Database className="w-6 h-6" />,
           description: 'Advanced database design and optimization',
           color: isDark ? '#336791' : '#0ea5e9'
@@ -97,29 +172,10 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         },
         {
           name: 'Flutter',
-          level: 75,
+          level: 20,
           icon: <Smartphone className="w-6 h-6" />,
           description: 'Native mobile apps with Dart and Flutter',
           color: isDark ? '#02569b' : '#8b5cf6'
-        }
-      ]
-    },
-    {
-      name: 'AI/ML',
-      skills: [
-        {
-          name: 'Machine Learning',
-          level: 78,
-          icon: <Brain className="w-6 h-6" />,
-          description: 'ML algorithms and model training with Python',
-          color: isDark ? '#ff6b6b' : '#ef4444'
-        },
-        {
-          name: 'TensorFlow',
-          level: 72,
-          icon: <Zap className="w-6 h-6" />,
-          description: 'Deep learning and neural network development',
-          color: isDark ? '#ff6f00' : '#f59e0b'
         }
       ]
     }
