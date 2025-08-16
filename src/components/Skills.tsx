@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { Code, Database, Globe, Smartphone, Server, Palette, Brain, Zap } from 'lucide-react';
 
 interface Skill {
@@ -17,6 +18,10 @@ interface SkillCategory {
 
 const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
 
   const skillCategories: SkillCategory[] = [
     {
@@ -187,42 +192,48 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
     <section id="skills" className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-gradient-to-br from-gray-50 to-gray-100'}`}>
       <div className="container mx-auto px-6">
         <motion.div
+          ref={ref}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            Technical Skills
+            Technical <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Skills</span>
           </h2>
           <p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
             A comprehensive overview of my technical expertise across various domains
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full mt-6"></div>
         </motion.div>
 
         {/* Category Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
           {skillCategories.map((category) => (
             <motion.button
               key={category.name}
               onClick={() => setActiveCategory(category.name)}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                 activeCategory === category.name
                   ? isDark 
-                    ? 'bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-lg shadow-cyan-500/25'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25'
                   : isDark
                     ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                     : 'bg-white text-gray-700 hover:bg-gray-50 shadow-sm border border-gray-200'
               }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               {category.name}
             </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Skills Grid */}
         <AnimatePresence mode="wait">
@@ -240,17 +251,47 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-500 cursor-pointer ${
+                className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 cursor-pointer overflow-hidden ${
                   isDark 
-                    ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/80' 
-                    : 'bg-white/80 border-gray-200/60 hover:bg-white shadow-sm hover:shadow-lg'
+                    ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/80 hover:border-cyan-400/50' 
+                    : 'bg-white/90 border-gray-200/60 hover:bg-white hover:border-blue-400/50 shadow-sm hover:shadow-xl hover:shadow-blue-500/10'
                 }`}
                 whileHover={{ 
                   scale: 1.05,
-                  y: -10,
+                  y: -8,
+                  rotateY: 5,
                   transition: { type: "spring", stiffness: 300, damping: 20 }
                 }}
               >
+                {/* Animated Background Gradient */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(135deg, ${skill.color}10, ${skill.color}05, transparent)`
+                  }}
+                />
+
+                {/* Floating Particles */}
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-60"
+                    style={{ backgroundColor: skill.color }}
+                    initial={{ scale: 0, x: 30, y: 30 }}
+                    whileHover={{
+                      scale: [0, 1, 0],
+                      x: [30, Math.random() * 200 - 100],
+                      y: [30, Math.random() * 200 - 100],
+                      opacity: [0, 0.6, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.2,
+                      repeat: Infinity,
+                    }}
+                  />
+                ))}
+
                 {/* Floating Particles */}
                 {[...Array(3)].map((_, i) => (
                   <motion.div
@@ -273,39 +314,81 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
 
                 {/* Icon */}
                 <motion.div
-                  className="mb-4 p-3 rounded-xl inline-block"
+                  className="relative mb-4 p-4 rounded-xl inline-block"
                   style={{ backgroundColor: `${skill.color}20` }}
                   whileHover={{ 
-                    scale: 1.2, 
-                    rotate: 10,
+                    scale: 1.3, 
+                    rotate: [0, -10, 10, 0],
+                    boxShadow: `0 10px 30px ${skill.color}40`,
                     transition: { type: "spring", stiffness: 300 }
                   }}
                 >
+                  {/* Icon Glow Effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100"
+                    style={{ 
+                      background: `radial-gradient(circle, ${skill.color}30, transparent 70%)`,
+                      filter: 'blur(8px)'
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
                   <div style={{ color: skill.color }}>
                     {skill.icon}
                   </div>
                 </motion.div>
 
                 {/* Skill Name */}
-                <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                <motion.h3 
+                  className={`text-xl font-bold mb-3 relative z-10 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                  whileHover={{ 
+                    color: skill.color,
+                    textShadow: `0 0 20px ${skill.color}50`,
+                    transition: { duration: 0.3 }
+                  }}
+                >
                   {skill.name}
-                </h3>
+                </motion.h3>
 
                 {/* Progress Bar */}
-                <div className={`w-full rounded-full h-2 mb-4 ${isDark ? 'bg-gray-700' : 'bg-gray-200'}`}>
+                <div className={`w-full rounded-full h-3 mb-4 relative overflow-hidden ${isDark ? 'bg-gray-700' : 'bg-gray-200'}`}>
                   <motion.div
-                    className="h-2 rounded-full relative overflow-hidden"
+                    className="h-3 rounded-full relative overflow-hidden"
                     style={{ backgroundColor: skill.color }}
                     initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
+                    animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
                     transition={{ duration: 1, delay: index * 0.1 }}
+                    whileHover={{
+                      boxShadow: `0 0 20px ${skill.color}60`,
+                      filter: 'brightness(1.2)',
+                      transition: { duration: 0.3 }
+                    }}
                   >
                     {/* Shine Effect */}
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                      animate={{ x: ['-100%', '100%'] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12"
+                      initial={{ x: '-100%' }}
+                      animate={{ x: ['100%', '200%'] }}
+                      transition={{ 
+                        duration: 1.5, 
+                        repeat: Infinity, 
+                        delay: 1 + index * 0.2,
+                        repeatDelay: 3
+                      }}
+                    />
+                    
+                    {/* Pulse Effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      style={{ backgroundColor: skill.color }}
+                      animate={{
+                        opacity: [0.5, 0.8, 0.5],
+                        scale: [1, 1.02, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
                     />
                   </motion.div>
                 </div>
@@ -315,35 +398,75 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
                   <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                     Proficiency
                   </span>
-                  <span className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  <motion.span 
+                    className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}
+                    whileHover={{ 
+                      scale: 1.1,
+                      color: skill.color,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
                     {skill.level}%
-                  </span>
+                  </motion.span>
                 </div>
 
                 {/* Description */}
                 <motion.div
-                  className="overflow-hidden"
-                  initial={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden relative z-10"
+                  initial={{ height: 0, opacity: 0, y: 10 }}
                   whileHover={{ 
                     height: 'auto', 
                     opacity: 1,
-                    transition: { duration: 0.3, ease: "easeOut" }
+                    y: 0,
+                    transition: { 
+                      duration: 0.4, 
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                      staggerChildren: 0.1
+                    }
                   }}
                 >
-                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <motion.p 
+                    className={`text-sm leading-relaxed pt-2 border-t ${
+                      isDark ? 'text-gray-300 border-gray-600/30' : 'text-gray-600 border-gray-300/30'
+                    }`}
+                    initial={{ opacity: 0 }}
+                    whileHover={{ 
+                      opacity: 1,
+                      transition: { delay: 0.1, duration: 0.3 }
+                    }}
+                  >
                     {skill.description}
-                  </p>
+                  </motion.p>
                 </motion.div>
 
-                {/* Hover Glow Effect */}
+                {/* Enhanced Hover Effects */}
                 <motion.div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 pointer-events-none"
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
                   style={{ 
-                    background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)`,
-                    filter: 'blur(20px)'
+                    background: `radial-gradient(circle at 50% 50%, ${skill.color}15, transparent 70%)`
                   }}
-                  whileHover={{ opacity: 0.2 }}
                   transition={{ duration: 0.3 }}
+                />
+                
+                {/* Border Glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
+                  style={{
+                    background: `linear-gradient(135deg, ${skill.color}30, transparent, ${skill.color}20)`,
+                    padding: '1px',
+                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    maskComposite: 'exclude'
+                  }}
+                  transition={{ duration: 0.4 }}
+                />
+                
+                {/* Corner Accent */}
+                <motion.div
+                  className="absolute top-0 right-0 w-0 h-0 group-hover:w-16 group-hover:h-16 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(135deg, ${skill.color}20, transparent)`,
+                    clipPath: 'polygon(100% 0%, 0% 0%, 100% 100%)'
+                  }}
                 />
               </motion.div>
             ))}
@@ -353,36 +476,54 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         {/* Skills Summary */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {[
-            { label: 'Years of Experience', value: '5+', icon: <Zap className="w-6 h-6" /> },
-            { label: 'Technologies Mastered', value: '20+', icon: <Code className="w-6 h-6" /> },
-            { label: 'Projects Completed', value: '50+', icon: <Globe className="w-6 h-6" /> }
+            { label: 'Years of Experience', value: '2+', icon: <Zap className="w-6 h-6" />, color: '#00d4ff' },
+            { label: 'Technologies Mastered', value: '10+', icon: <Code className="w-6 h-6" />, color: '#8b5cf6' },
+            { label: 'Projects Completed', value: '15+', icon: <Globe className="w-6 h-6" />, color: '#00d4ff' }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
               className={`text-center p-6 rounded-2xl backdrop-blur-sm border ${
                 isDark 
-                  ? 'bg-gray-800/30 border-gray-700/50' 
-                  : 'bg-white/60 border-gray-200/60 shadow-sm'
+                  ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50' 
+                  : 'bg-white/80 border-gray-200/60 shadow-sm hover:shadow-lg hover:bg-white'
               }`}
               whileHover={{ 
                 scale: 1.05,
+                y: -5,
+                boxShadow: `0 20px 40px ${stat.color}20`,
                 transition: { type: "spring", stiffness: 300 }
               }}
             >
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
-                isDark ? 'bg-cyan-500/20 text-cyan-400' : 'bg-blue-500/20 text-blue-600'
-              }`}>
+              <motion.div 
+                className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
+                style={{ 
+                  backgroundColor: `${stat.color}20`,
+                  color: stat.color
+                }}
+                whileHover={{
+                  scale: 1.2,
+                  rotate: 360,
+                  boxShadow: `0 0 30px ${stat.color}40`,
+                  transition: { duration: 0.6 }
+                }}
+              >
                 {stat.icon}
-              </div>
-              <div className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              </motion.div>
+              <motion.div 
+                className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                whileHover={{
+                  scale: 1.1,
+                  color: stat.color,
+                  transition: { duration: 0.3 }
+                }}
+              >
                 {stat.value}
-              </div>
+              </motion.div>
               <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                 {stat.label}
               </div>
