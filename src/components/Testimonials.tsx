@@ -6,8 +6,8 @@ import { Quote, Star } from 'lucide-react';
 const Testimonials: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
-    rootMargin: '-50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -100px 0px'
   });
 
   const testimonials = [
@@ -88,58 +88,161 @@ const Testimonials: React.FC = () => {
             <motion.div
               key={testimonial.name}
               variants={itemVariants}
-              className="group"
+              className="group h-full"
             >
-              <div className="relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl hover:bg-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10 hover:scale-105 h-full">
+              <motion.div 
+                className="relative p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl h-full overflow-hidden"
+                whileHover={{ 
+                  scale: 1.03,
+                  y: -8,
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(0, 212, 255, 0.3)',
+                  boxShadow: '0 25px 50px -12px rgba(0, 212, 255, 0.25)',
+                  transition: { 
+                    type: "spring", 
+                    stiffness: 300, 
+                    damping: 20 
+                  }
+                }}
+              >
                 {/* Quote Icon */}
-                <div className="absolute -top-4 left-8">
-                  <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-full flex items-center justify-center">
+                <motion.div 
+                  className="absolute -top-4 left-8"
+                  whileHover={{
+                    scale: 1.2,
+                    rotate: 10,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <motion.div 
+                    className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-full flex items-center justify-center"
+                    whileHover={{
+                      boxShadow: '0 0 20px rgba(0, 212, 255, 0.6)',
+                      transition: { duration: 0.3 }
+                    }}
+                  >
                     <Quote className="w-4 h-4 text-white" />
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
 
                 {/* Stars Rating */}
-                <div className="flex gap-1 mb-4">
+                <motion.div 
+                  className="flex gap-1 mb-4"
+                  whileHover={{
+                    scale: 1.05,
+                    transition: { duration: 0.3 }
+                  }}
+                >
                   {[...Array(testimonial.rating)].map((_, starIndex) => (
-                    <Star
+                    <motion.div
                       key={starIndex}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
+                      whileHover={{
+                        scale: 1.3,
+                        rotate: 180,
+                        transition: { duration: 0.3, delay: starIndex * 0.05 }
+                      }}
+                    >
+                      <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
                 {/* Testimonial Text */}
-                <p className="text-gray-300 mb-6 leading-relaxed italic">
+                <motion.p 
+                  className="text-gray-300 mb-6 leading-relaxed italic relative z-10"
+                  whileHover={{
+                    color: '#e2e8f0',
+                    transition: { duration: 0.3 }
+                  }}
+                >
                   "{testimonial.text}"
-                </p>
+                </motion.p>
 
                 {/* Client Info */}
                 <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <img
+                  <motion.div 
+                    className="relative"
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    <motion.img
                       src={testimonial.image}
                       alt={testimonial.name}
                       className="w-12 h-12 rounded-full object-cover border-2 border-cyan-400/30"
+                      whileHover={{
+                        borderColor: 'rgba(0, 212, 255, 0.8)',
+                        boxShadow: '0 0 20px rgba(0, 212, 255, 0.4)',
+                        transition: { duration: 0.3 }
+                      }}
                     />
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-400/20"></div>
-                  </div>
+                    <motion.div 
+                      className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-400/20"
+                      whileHover={{
+                        background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.3))',
+                        transition: { duration: 0.3 }
+                      }}
+                    />
+                  </motion.div>
                   
                   <div>
-                    <h4 className="font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300">
+                    <motion.h4 
+                      className="font-semibold text-white transition-colors duration-300"
+                      whileHover={{
+                        color: '#67e8f9',
+                        scale: 1.05,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
                       {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-400">
+                    </motion.h4>
+                    <motion.p 
+                      className="text-sm text-gray-400"
+                      whileHover={{
+                        color: '#cbd5e1',
+                        transition: { duration: 0.3 }
+                      }}
+                    >
                       {testimonial.position}
-                    </p>
-                    <p className="text-sm text-cyan-400 font-medium">
+                    </motion.p>
+                    <motion.p 
+                      className="text-sm text-cyan-400 font-medium"
+                      whileHover={{
+                        color: '#22d3ee',
+                        textShadow: '0 0 10px rgba(34, 211, 238, 0.5)',
+                        transition: { duration: 0.3 }
+                      }}
+                    >
                       {testimonial.company}
-                    </p>
+                    </motion.p>
                   </div>
                 </div>
 
-                {/* Hover Effect Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-purple-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"></div>
-              </div>
+                {/* Animated Background Particles */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-60"
+                    initial={{ scale: 0 }}
+                    whileHover={{
+                      scale: [0, 1, 0],
+                      x: [0, Math.random() * 100 - 50],
+                      y: [0, Math.random() * 100 - 50],
+                      opacity: [0, 0.6, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.3,
+                      repeat: Infinity,
+                    }}
+                    style={{
+                      top: `${30 + i * 20}%`,
+                      left: `${20 + i * 30}%`
+                    }}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
@@ -147,32 +250,45 @@ const Testimonials: React.FC = () => {
         {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16"
         >
-          <div className="text-center">
-            <div className="text-3xl font-bold text-cyan-400 mb-2">15+</div>
-            <div className="text-gray-400">Projects Completed</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-purple-400 mb-2">10+</div>
-            <div className="text-gray-400">Happy Clients</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-cyan-400 mb-2">100%</div>
-            <div className="text-gray-400">Client Satisfaction</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-purple-400 mb-2">2+</div>
-            <div className="text-gray-400">Years Experience</div>
-          </div>
+          {[
+            { label: 'Projects Completed', value: '15+', color: '#00d4ff' },
+            { label: 'Happy Clients', value: '10+', color: '#8b5cf6' },
+            { label: 'Client Satisfaction', value: '100%', color: '#00d4ff' },
+            { label: 'Years Experience', value: '2+', color: '#8b5cf6' }
+          ].map((stat, index) => (
+          <motion.div 
+            key={stat.label}
+            className="text-center"
+            whileHover={{
+              scale: 1.05,
+              y: -5,
+              transition: { type: "spring", stiffness: 300 }
+            }}
+          >
+            <motion.div 
+              className="text-3xl font-bold mb-2"
+              style={{ color: stat.color }}
+              whileHover={{
+                scale: 1.1,
+                textShadow: `0 0 20px ${stat.color}60`,
+                transition: { duration: 0.3 }
+              }}
+            >
+              {stat.value}
+            </motion.div>
+            <div className="text-gray-400">{stat.label}</div>
+          </motion.div>
+          ))}
         </motion.div>
 
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.7 }}
           className="text-center mt-16"
         >
@@ -183,17 +299,24 @@ const Testimonials: React.FC = () => {
             <p className="text-gray-300 mb-6">
               Let's discuss your project and create something amazing together.
             </p>
-            <button
+            <motion.button
               onClick={() => {
                 const element = document.querySelector('#contact');
                 if (element) {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
+              whileHover={{ 
+                scale: 1.05,
+                y: -2,
+                boxShadow: '0 20px 40px rgba(0, 212, 255, 0.3)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/25 hover:scale-105"
             >
               Start Your Project
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </div>
