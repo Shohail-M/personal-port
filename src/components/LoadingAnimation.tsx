@@ -56,10 +56,10 @@ const LoadingAnimation: React.FC = () => {
   const particleVariants = {
     initial: { scale: 0, opacity: 0 },
     animate: (i: number) => ({
-      scale: [0, 1, 0.8, 1],
-      opacity: [0, 1, 0.7, 1],
-      x: [0, Math.cos(i * 60) * 100, Math.cos(i * 60) * 80],
-      y: [0, Math.sin(i * 60) * 100, Math.sin(i * 60) * 80],
+      scale: [0, 1],
+      opacity: [0, 1],
+      x: [0, Math.cos(i * 60) * 100],
+      y: [0, Math.sin(i * 60) * 100],
       transition: {
         duration: 2,
         delay: i * 0.1,

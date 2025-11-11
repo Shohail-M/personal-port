@@ -316,9 +316,9 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
                 <motion.div
                   className="relative mb-4 p-4 rounded-xl inline-block"
                   style={{ backgroundColor: `${skill.color}20` }}
-                  whileHover={{ 
-                    scale: 1.3, 
-                    rotate: [0, -10, 10, 0],
+                  whileHover={{
+                    scale: 1.3,
+                    rotate: 5,
                     boxShadow: `0 10px 30px ${skill.color}40`,
                     transition: { type: "spring", stiffness: 300 }
                   }}
