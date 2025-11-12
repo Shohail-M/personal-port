@@ -30,21 +30,21 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
       skills: [
         {
           name: 'React',
-          level: 95,
+          level: 70,
           icon: <Code className="w-6 h-6" />,
           description: 'Advanced React development with hooks, context, and modern patterns',
           color: isDark ? '#61dafb' : '#0ea5e9'
         },
         {
           name: 'TypeScript',
-          level: 90,
+          level: 70,
           icon: <Code className="w-6 h-6" />,
           description: 'Strong typing and advanced TypeScript features',
           color: isDark ? '#3178c6' : '#8b5cf6'
         },
         {
           name: 'Next.js',
-          level: 88,
+          level: 50,
           icon: <Globe className="w-6 h-6" />,
           description: 'Full-stack React framework with SSR and SSG',
           color: isDark ? '#ffffff' : '#111827'
@@ -65,7 +65,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         },
         {
           name: 'Python',
-          level: 60,
+          level: 30,
           icon: <Code className="w-6 h-6" />,
           description: 'Backend development with Django and FastAPI',
           color: isDark ? '#3776ab' : '#8b5cf6'
@@ -93,7 +93,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         },
         {
           name: 'Flutter',
-          level: 20,
+          level: 10,
           icon: <Smartphone className="w-6 h-6" />,
           description: 'Native mobile apps with Dart and Flutter',
           color: isDark ? '#02569b' : '#8b5cf6'
@@ -105,21 +105,21 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
       skills: [
         {
           name: 'React',
-          level: 95,
+          level: 70,
           icon: <Code className="w-6 h-6" />,
           description: 'Advanced React development with hooks, context, and modern patterns',
           color: isDark ? '#61dafb' : '#0ea5e9'
         },
         {
           name: 'TypeScript',
-          level: 90,
+          level: 50,
           icon: <Code className="w-6 h-6" />,
           description: 'Strong typing and advanced TypeScript features',
           color: isDark ? '#3178c6' : '#8b5cf6'
         },
         {
           name: 'Next.js',
-          level: 88,
+          level: 50,
           icon: <Globe className="w-6 h-6" />,
           description: 'Full-stack React framework with SSR and SSG',
           color: isDark ? '#ffffff' : '#111827'
@@ -138,14 +138,14 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
       skills: [
         {
           name: 'Node.js',
-          level: 75,
+          level: 30,
           icon: <Server className="w-6 h-6" />,
           description: 'Server-side JavaScript with Express and modern frameworks',
           color: isDark ? '#68a063' : '#059669'
         },
         {
           name: 'Python',
-          level: 60,
+          level: 10,
           icon: <Code className="w-6 h-6" />,
           description: 'Backend development with Django and FastAPI',
           color: isDark ? '#3776ab' : '#8b5cf6'
@@ -159,7 +159,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         },
         {
           name: 'MongoDB',
-          level: 78,
+          level: 40,
           icon: <Database className="w-6 h-6" />,
           description: 'NoSQL database design and aggregation pipelines',
           color: isDark ? '#47a248' : '#059669'
@@ -178,7 +178,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         },
         {
           name: 'Flutter',
-          level: 20,
+          level: 10,
           icon: <Smartphone className="w-6 h-6" />,
           description: 'Native mobile apps with Dart and Flutter',
           color: isDark ? '#02569b' : '#8b5cf6'
@@ -196,7 +196,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -212,7 +212,7 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
           {skillCategories.map((category) => (
