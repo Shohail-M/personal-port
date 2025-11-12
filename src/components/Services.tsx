@@ -6,7 +6,7 @@ import { Code, Palette, Smartphone, Zap, Globe, Layers } from 'lucide-react';
 const Services: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.3
   });
 
   const services = [

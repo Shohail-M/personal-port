@@ -8,7 +8,7 @@ import EnhancedButton from './EnhancedButton';
 const Contact: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.3
   });
 
   const [formData, setFormData] = useState({
