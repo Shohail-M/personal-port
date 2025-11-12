@@ -6,7 +6,8 @@ import { Code, Palette, Zap, Target } from 'lucide-react';
 const About: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.3
+    threshold: 0.01,
+    rootMargin: '0px 0px 100px 0px'
   });
 
   const timelineItems = [

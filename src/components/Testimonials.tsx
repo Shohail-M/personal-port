@@ -6,8 +6,8 @@ import { Quote, Star } from 'lucide-react';
 const Testimonials: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.3,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.01,
+    rootMargin: '0px 0px 100px 0px'
   });
 
   const testimonials = [

@@ -20,7 +20,8 @@ const Skills: React.FC<{ isDark?: boolean }> = ({ isDark = true }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.3
+    threshold: 0.01,
+    rootMargin: '0px 0px 100px 0px'
   });
 
   const skillCategories: SkillCategory[] = [

@@ -6,7 +6,8 @@ import { ExternalLink, Github, Eye } from 'lucide-react';
 const Projects: React.FC = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.3
+    threshold: 0.01,
+    rootMargin: '0px 0px 100px 0px'
   });
 
   const projects = [
