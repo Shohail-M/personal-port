@@ -40,6 +40,8 @@ const EnhancedButton: React.FC<EnhancedButtonProps> = ({
       disabled={disabled || loading}
       whileHover={{ scale: disabled ? 1 : 1.05, y: disabled ? 0 : -2 }}
       whileTap={{ scale: disabled ? 1 : 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      style={{ willChange: 'transform' }}
       className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className} ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}

@@ -97,14 +97,16 @@ const LoadingAnimation: React.FC = () => {
             <motion.div
               key={i}
               className="absolute w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent"
-              style={{ left: `${(i + 1) * 5}%` }}
+              style={{
+                left: `${(i + 1) * 5}%`,
+                willChange: 'transform'
+              }}
               animate={{
-                opacity: [0.1, 0.3, 0.1],
                 scaleY: [0.5, 1, 0.5]
               }}
               transition={{
                 duration: 3,
-                delay: i * 0.1,
+                delay: (i % 5) * 0.2,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -124,28 +126,30 @@ const LoadingAnimation: React.FC = () => {
               {/* Outer Ring */}
               <motion.div
                 className="absolute inset-0 rounded-full border-4 border-cyan-400/30"
+                style={{ willChange: 'transform' }}
                 animate={{
-                  rotate: 360,
-                  scale: [1, 1.1, 1]
+                  rotate: 360
                 }}
                 transition={{
-                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear"
                 }}
               />
               
               {/* Inner Logo */}
               <motion.div
                 className="absolute inset-4 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-2xl flex items-center justify-center text-4xl font-bold text-white shadow-2xl"
+                style={{ willChange: 'filter' }}
                 animate={{
-                  boxShadow: [
-                    "0 0 20px rgba(0, 212, 255, 0.3)",
-                    "0 0 40px rgba(139, 92, 246, 0.5)",
-                    "0 0 20px rgba(0, 212, 255, 0.3)"
+                  filter: [
+                    "drop-shadow(0 0 10px rgba(0, 212, 255, 0.3))",
+                    "drop-shadow(0 0 20px rgba(139, 92, 246, 0.5))",
+                    "drop-shadow(0 0 10px rgba(0, 212, 255, 0.3))"
                   ]
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 2.5,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}

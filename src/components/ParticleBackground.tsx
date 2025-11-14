@@ -49,39 +49,40 @@ const ParticleBackground: React.FC = () => {
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connecting lines
+      // Optimize line drawing: only check nearby particles
+      const connectionDistance = 150;
       particlesRef.current.forEach((particle, i) => {
-        particlesRef.current.slice(i + 1).forEach(otherParticle => {
+        for (let j = i + 1; j < particlesRef.current.length; j++) {
+          const otherParticle = particlesRef.current[j];
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
+          const maxDistSq = connectionDistance * connectionDistance;
 
-          if (distance < 150) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / 150)})`;
+          if (distSq < maxDistSq) {
+            const distance = Math.sqrt(distSq);
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / connectionDistance)})`;
             ctx.lineWidth = 1;
+            ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
             ctx.stroke();
           }
-        });
+        }
       });
 
-      // Draw particles
+      // Draw particles with optimized glow
+      ctx.shadowColor = '#00D4FF';
+      ctx.shadowBlur = 8;
       particlesRef.current.forEach(particle => {
+        ctx.fillStyle = particle.color === '#00D4FF'
+          ? `rgba(0, 212, 255, ${particle.opacity})`
+          : `rgba(139, 92, 246, ${particle.opacity})`;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color === '#00D4FF' 
-          ? `rgba(0, 212, 255, ${particle.opacity})` 
-          : `rgba(139, 92, 246, ${particle.opacity})`;
         ctx.fill();
-
-        // Add glow effect
-        ctx.shadowColor = particle.color;
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
       });
+      ctx.shadowBlur = 0;
     };
 
     const updateParticles = () => {

@@ -156,21 +156,21 @@ const Hero: React.FC = () => {
           {[...Array(4)].map((_, i) => (
             <motion.div
               key={`shape-${i}`}
-              className="absolute border border-purple-400/20 rounded-lg animate-gpu"
+              className="absolute border border-purple-400/20 rounded-lg"
               style={{
                 width: 60 + i * 20,
                 height: 60 + i * 20,
                 left: `${20 + i * 20}%`,
                 top: `${30 + i * 15}%`,
+                willChange: 'transform'
               }}
               animate={{
-                rotate: [0, 360],
+                rotate: [0, 180],
                 scale: [1, 1.1, 1],
               }}
               transition={{
-                duration: 10 + i * 2,
-                repeat: Infinity,
-                ease: "linear",
+                rotate: { duration: 8 + i * 2, repeat: Infinity, ease: "linear" },
+                scale: { duration: 4 + i, repeat: Infinity, ease: "easeInOut" }
               }}
             />
           ))}
